@@ -7,6 +7,9 @@
   color: rgba(255, 255, 255, 0.87);
   background-color: #242424;
 
+  width: 100%;
+  display: flex;
+
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -52,6 +55,13 @@ button:hover {
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
+}
+#root {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
 }
 
 @media (prefers-color-scheme: light) {
