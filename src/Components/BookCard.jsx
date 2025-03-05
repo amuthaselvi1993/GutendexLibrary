@@ -1,6 +1,14 @@
+import React from "react";
 import styled from "styled-components";
 
 const BookCard = ({ book }) => {
+  const addToFavourites = () => {
+    let favourites = JSON.parse(localStorage.getItem("favourites")) || [];
+    favourites.push(book);
+    localStorage.setItem("favourites", JSON.stringify(favourites));
+    alert(`${book.title} has been added to your favourites!`);
+  };
+
   return (
     <Card>
       <BookImage
@@ -18,7 +26,7 @@ const BookCard = ({ book }) => {
       <BookInfo>
         <strong>Download Count:</strong> {book.download_count}
       </BookInfo>
-      <Button>Add to favourites</Button>
+      <Button  onClick={addToFavourites}>Add to favourites</Button>
     </Card>
   );
 };
@@ -28,14 +36,15 @@ export default BookCard;
 /* Styled Components */
 const Card = styled.div`
   border: 1px solid #ddd;
-  padding: 15px;
+  padding: 25px;
   width: 220px;
   border-radius: 8px;
   box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
   text-align: center;
   background: #fff;
   transition: transform 0.2s ease-in-out;
-
+  display: grid;
+  grid-template-rows: 1fr 0.8fr 0.2fr repeat(3, 0.1fr);
   &:hover {
     transform: scale(1.05);
   }

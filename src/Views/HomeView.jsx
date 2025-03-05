@@ -62,6 +62,7 @@ const BookList = styled.div`
   flex-wrap: wrap;
   justify-content: center;
   gap: 20px;
+  padding:35px;
   width: 100%;
   max-width: 900px;
 `;
@@ -72,7 +73,11 @@ const HomeView = () => {
     useContext(AppContext);
   // Function to fetch books
   const handleSearch = async () => {
-    if (!searchQuery.trim()) return; // Prevent empty search
+    if (!searchQuery.trim())
+      {
+        setError("Please enter a valid search query");
+        return;
+      }
 
     try {
       setError(null);
@@ -90,13 +95,27 @@ const HomeView = () => {
 
       const data = await response.json();
       console.log(data);
-      setResultBooks(data.results); // Store books in context
+      if(data.results
+        && data.results.length === 0
+      )
+      {
+        setError("No books found with the search query");
+        setResultBooks([]);
+      }
+      else
+       setResultBooks(data.results); // Store books in context
     } catch (err) {
       setError(err.message);
     } finally {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    setLoading(false);
+    setError(null);
+    // loadDefaultBooks();
+  }, []);
 
   return (
     <Container>
@@ -113,13 +132,13 @@ const HomeView = () => {
       </SearchContainer>
       {loading && <p>Loading...</p>}
       {error && <p style={{ color: "red" }}>{error}</p>}
-      <BookList>
-        {resultBooks && resultBooks.length > 0 ? (
-          resultBooks.map((book) => <BookCard key={book.id} book={book} />)
-        ) : (
-          <p>No books found.</p>
-        )}
-      </BookList>
+      {resultBooks && resultBooks.length > 0 && (
+        <BookList>
+          {resultBooks.map((book) => (
+            <BookCard key={book.id} book={book} />
+          ))}
+        </BookList>
+      )}
     </Container>
   );
 };
