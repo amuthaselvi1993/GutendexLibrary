@@ -37,7 +37,7 @@ jobs:
           pwsh -Command "if (Test-Path -Path 'dist') { Write-Host '✅ dist exists!' } else { Write-Host '❌ dist NOT found!' }"
  
       - name: Upload build artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: dist
           path: dist
