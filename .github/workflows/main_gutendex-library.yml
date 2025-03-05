@@ -25,6 +25,9 @@ jobs:
           npm install
           npm run build --if-present
           npm run test --if-present
+      - name: Debug Check if dist/ exists
+        run: |
+          if (Test-Path -Path dist) { echo "✅ dist exists!" } else { echo "❌ dist NOT found!" }
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v3
@@ -45,7 +48,10 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: dist
-
+          
+      - name: Debug Check if dist/ exists after download
+        run: ls -l dist || echo "❌ dist NOT found after download!"
+        
       - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v2
         id: deploy-to-webapp
@@ -53,4 +59,4 @@ jobs:
           app-name: 'gutendex-library'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_365DF31AD6ED4007A41B2A53DA31E0DF }}
-          package: .
+          package: dist
