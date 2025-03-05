@@ -28,7 +28,8 @@ jobs:
       - name: Debug Check if dist/ exists
         run: |
           if (Test-Path -Path dist) { echo "✅ dist exists!" } else { echo "❌ dist NOT found!" }
-
+      - name: Clear workspace and cache
+        run: rm -rf ./*
       - name: Upload build artifact
         uses: actions/upload-artifact@v2
         with:
