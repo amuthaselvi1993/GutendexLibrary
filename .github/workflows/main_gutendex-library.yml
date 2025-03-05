@@ -27,11 +27,12 @@ jobs:
           npm run build --if-present
           npm run test --if-present
 
-      - name: Upload artifact for deployment job
+      - name: Upload build artifact
         uses: actions/upload-artifact@v3
         with:
           name: build
           path: build
+
 
   deploy:
     runs-on: ubuntu-latest
