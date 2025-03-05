@@ -66,4 +66,4 @@ jobs:
           app-name: 'gutendex-library'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_365DF31AD6ED4007A41B2A53DA31E0DF }}
-          package: dist
+          package: .
