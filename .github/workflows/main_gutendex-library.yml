@@ -60,7 +60,7 @@ jobs:
         run: ls -l dist || echo "❌ dist NOT found after download!"
         
       - name: 'Deploy to Azure Web App'
-        uses: azure/webapps-deploy@v2
+        uses: azure/webapps-deploy@v4
         id: deploy-to-webapp
         with:
           app-name: 'gutendex-library'
